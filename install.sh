@@ -1,3 +1,5 @@
+sudo apt-get update
+
 DOTFILES_DIR="$HOME/Projects/dotfiles"
 
 ln -sf "$DOTFILES_DIR/.gitconfig" "$HOME/.gitconfig"
@@ -16,18 +18,13 @@ sudo dpkg -i ProtonPass.deb
 rm proton-pass-checksum.json ProtonPass.deb
 
 # VSCode
-sudo apt-get install wget gpg
-wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
-echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" |sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null
-rm -f packages.microsoft.gpg
-sudo apt install apt-transport-https
-sudo apt update
-sudo apt install code # or code-insiders
-code --install-extension ms-vscode-remote.remote-containers
+sudo apt-get install wget
+echo "code code/add-microsoft-repo boolean true" | sudo debconf-set-selections
+wget 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64' -O /tmp/code_latest_amd64.deb
+sudo dpkg -i /tmp/code_latest_amd64.deb
+code --install-extension ms-vscode-remote.remote-containers --force
 
-# Docker
-sudo apt-get update
+# Docker Desktop
 sudo apt-get install ca-certificates curl
 sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
@@ -37,5 +34,10 @@ echo \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
-sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-sudo docker run hello-world
+wget -O docker-desktop-amd64.deb https://desktop.docker.com/linux/main/amd64/docker-desktop-amd64.deb
+sudo apt-get update
+sudo apt-get install -y ./docker-desktop-amd64.deb
+rm docker-desktop-amd64.deb
+# sudo modprobe kvm
+# sudo modprobe kvm_amd 
+# sudo usermod -aG kvm $USER
