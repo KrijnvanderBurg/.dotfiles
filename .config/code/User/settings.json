@@ -1,3 +1,4 @@
 {
-    "explorer.confirmDelete": false
+    "explorer.confirmDelete": false,
+    "git.autofetch": true
 }
