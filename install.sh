@@ -24,6 +24,7 @@ rm -f packages.microsoft.gpg
 sudo apt install apt-transport-https
 sudo apt update
 sudo apt install code # or code-insiders
+code --install-extension ms-vscode-remote.remote-containers
 
 # Docker
 sudo apt-get update
