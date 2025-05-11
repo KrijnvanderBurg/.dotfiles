@@ -2,7 +2,8 @@
     "exclude": [
         ".*/docs/.*",
         ".*/build/.*",
-        ".*/pyre-check/stubs/.*"
+        ".*/pyre-check/stubs/.*",
+        ".devcontainer/.*"
     ],
     "ignore_all_errors": [],
     "site_package_search_strategy": "pep561",

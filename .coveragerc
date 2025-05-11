@@ -7,6 +7,7 @@ omit =
     */tests/*
     /build/*
     */__init__.py
+    .devcontainer/*
 
 [report]
 include_namespace_packages = True
