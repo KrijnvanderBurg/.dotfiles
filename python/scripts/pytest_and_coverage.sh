@@ -17,6 +17,7 @@ pytest "$tests_path" \
 -o "cache_dir=$PWD/.pytest_cache" \
 --cov="$coverage_path" \
 --cov-report="xml:$output_coverage_filepath" \
+--cov-report="term-missing" \
 --cov-config="$config_filepath_coverage" \
 --junit-xml="$output_junit_filepath"
 # --verbose
