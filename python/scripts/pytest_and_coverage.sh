@@ -12,9 +12,12 @@ if ! command -v pytest &> /dev/null || ! python3 -c "import pytest_cov" &> /dev/
     pip3 install pytest pytest-cov pytest-xdist --quiet
 fi
 
-pytest "$tests_path" \
+cd "$PWD" && pytest "$tests_path" \
+--rootdir="$PWD" \
 -c="$config_filepath_pytest" \
 -o "cache_dir=$PWD/.pytest_cache" \
+--durations=0 \
+--durations-min=0.01 \
 --cov="$coverage_path" \
 --cov-report="xml:$output_coverage_filepath" \
 --cov-report="term-missing" \
